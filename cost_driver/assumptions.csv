@@ -1,0 +1,23 @@
+key,low,base,high,unit,basis
+credit_price,2.0,3.0,4.0,$/credit,"Cloud warehouse list price range, Standard to Business Critical"
+credits_per_hour_m,4.0,4.0,4.0,credits/h,"Medium warehouse (WH_TRANSFORM_M, named in the 09-03 error)"
+adhoc_query_hours,2.0,4.0,8.0,warehouse-h,Ad hoc investigation and reconciliation queries on a Medium warehouse
+full_refresh_factor,1.0,3.0,6.0,x rebuild,"Times the targeted rebuild is repeated (failed fixes, full-refresh of fct instead of one partition)"
+eng_rate,85.0,100.0,125.0,$/h,"Loaded rate, data/platform engineer"
+mgr_rate,110.0,130.0,160.0,$/h,"Loaded rate, engineering/analytics manager"
+exec_rate,180.0,220.0,280.0,$/h,"Loaded rate, VP and claims operations leaders"
+eng_hours_response,10.0,16.0,28.0,h,"Data Reliability, Data Eng (x2), Policy Platform, Claims Analytics (x2) during triage, fix and backfill"
+mgr_hours_response,3.0,5.0,9.0,h,Three team leads in the 'whose fault' bridge
+exec_hours_response,1.0,2.0,4.0,h,VP Claims Ops and staffing leads re-planning
+eng_hours_postmortem,6.0,10.0,16.0,h,"Postmortem, action items, verification"
+analyst_trust_hours,10.0,20.0,40.0,h,Manual dashboard cross-checks by analysts for ~2 weeks after
+p_acted_on,0.25,0.5,0.75,prob,Chance a staffing decision is made on the bad figure before detection (no gate)
+flex_capacity_share,0.1,0.15,0.2,share,Share of adjuster capacity that is flexible (overtime + independent adjusters)
+days_misstaffed,2.0,5.0,10.0,business days,Until the next weekly staffing review or a reconciliation catches it
+closures_per_adj_day,2.4,2.4,2.4,claims,Measured: normal Friday closures / adjuster roster
+cost_per_claim_delay_day,25.0,60.0,120.0,$/claim-day,"Blended extra LAE, rental (PA) and additional living expense (HO, displaced only) per claim-day of delay"
+avg_delay_days,2.0,3.0,6.0,days,Average extra days a deferred claim waits for capacity
+catchup_premium_per_adj_day,180.0,270.0,360.0,$/adjuster-day,Overtime premium (0.5x of ~$45/h x 8h) to recover the backlog
+ops_replan_hours,3.0,6.0,12.0,h,Claims ops managers redoing the staffing plan on corrected data
+source_renames_per_year,4.0,8.0,12.0,renames/yr,"Schema log: 2 PolicyCenter renames in 90 days (CHG-47102, CHG-48213)"
+p_rename_hits_consumed_col,0.25,0.5,0.75,prob,Schema log + column lineage: 1 of 2 renames hit a consumed column
