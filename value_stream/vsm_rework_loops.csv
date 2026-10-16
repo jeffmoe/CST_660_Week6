@@ -1,0 +1,5 @@
+run_date,loop,stage,table,failed_attempts,error,wasted_process_min,delay_to_success_min,on_critical_path,detection_latency_min,rebuild_compute_min,rebuild_tables
+2026-08-29,"Late source (wait, no rework)",Ingest,raw.claim,0,,0.0,47.5,False,,,
+2026-09-03,Retry after failed attempt,Stage,stg.claim_payment,1,Warehouse statement timeout (1800s) on WH_TRANSFORM_M,30.0,33.0,True,,,
+2026-10-16,Retry after failed attempt,Ingest,raw.storm_events,3,HTTP 503 Service Unavailable from api.weather.gov,1.6,237.2,True,,,
+2026-10-16,Defect escaped to consumer,Enrich,int.claim_policy_enriched,0,Silent row loss (job status: success),23.6,,True,247.9,28.0,stg.policy > int.claim_policy_enriched > mart.fct_claim_closed > mart.agg_claim_severity_daily > bi.claims_severity_dashboard

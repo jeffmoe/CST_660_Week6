@@ -1,0 +1,7 @@
+stage,critical_path_tables_seen,owner,wait_before_median_min,wait_before_p90_min,process_median_min,process_p90_min,first_pass_runs,runs,pct_complete_accurate,incident_wait_min,incident_process_min,incident_path
+Ingest,"raw.claim, raw.claim_payment, raw.policy_snapshot",Data Engineering,4.0,5.8,14.2,16.9,89,91,97.8,241.0,2.3,raw.storm_events
+Stage,"stg.claim, stg.claim_payment, stg.policy",Data Engineering,1.3,1.9,6.0,7.3,88,91,96.7,1.0,1.2,stg.storm_events
+Enrich,"int.claim_financials, int.claim_policy_enriched",Data Engineering,1.2,1.8,10.8,12.4,89,91,97.8,0.0,0.0,
+Model,mart.fct_claim_closed,Claims Analytics,1.2,1.9,5.0,5.9,90,91,98.9,0.0,0.0,
+Aggregate,mart.agg_claim_severity_daily,Claims Analytics,1.1,1.7,2.1,2.5,90,91,98.9,1.6,2.3,mart.agg_claim_severity_daily
+Publish,bi.claims_severity_dashboard,Claims Analytics,165.4,169.5,4.0,4.8,90,91,98.9,0.0,5.0,bi.claims_severity_dashboard
