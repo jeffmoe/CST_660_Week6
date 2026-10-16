@@ -1,0 +1,27 @@
+table,column,upstream_table,upstream_column,usage
+raw.policy_snapshot,pol_status_cd,src_policycenter.policy,pol_status_cd,projection (API v3)
+raw.policy_snapshot,policy_status_code,src_policycenter.policy,policy_status_code,projection (API v4)
+raw.policy_snapshot,producer_cd,src_policycenter.policy,producer_cd,projection
+raw.policy_snapshot,lob_cd,src_policycenter.policy,lob_cd,projection
+raw.policy_snapshot,policy_id,src_policycenter.policy,policy_id,projection
+stg.policy,policy_id,raw.policy_snapshot,policy_id,projection
+stg.policy,lob_cd,raw.policy_snapshot,lob_cd,projection
+stg.policy,policy_status,raw.policy_snapshot,pol_status_cd,projection (renamed)
+stg.claim,claim_id,raw.claim,claim_id,projection
+stg.claim,policy_id,raw.claim,policy_id,projection
+stg.claim,lob_cd,raw.claim,lob_cd,projection
+stg.claim,litigation_flag,raw.claim,litigation_flag,projection
+int.claim_policy_enriched,claim_id,stg.claim,claim_id,projection
+int.claim_policy_enriched,lob_cd,stg.claim,lob_cd,projection
+int.claim_policy_enriched,policy_id,stg.policy,policy_id,join key
+int.claim_policy_enriched,policy_status,stg.policy,policy_status,join filter + projection
+int.claim_financials,total_paid,stg.claim_payment,amount,aggregate SUM
+mart.fct_claim_closed,claim_id,int.claim_policy_enriched,claim_id,projection
+mart.fct_claim_closed,lob_cd,int.claim_policy_enriched,lob_cd,projection
+mart.fct_claim_closed,total_paid,int.claim_financials,total_paid,projection
+mart.fct_claim_closed,close_date,stg.claim_status,status_ts,filter status = 'CLOSED'
+mart.agg_claim_severity_daily,closed_count,mart.fct_claim_closed,claim_id,aggregate COUNT
+mart.agg_claim_severity_daily,mean_severity,mart.fct_claim_closed,total_paid,aggregate AVG where > 0
+mart.agg_claim_severity_daily,cat_event_id,stg.storm_events,event_id,left join
+bi.claims_severity_dashboard,closed_count,mart.agg_claim_severity_daily,closed_count,SUM
+bi.claims_severity_dashboard,mean_severity,mart.agg_claim_severity_daily,mean_severity,weighted AVG

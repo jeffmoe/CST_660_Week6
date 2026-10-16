@@ -1,0 +1,23 @@
+change_id,detected_at,system,object,change_type,column_name,old_value,new_value,change_ticket,author_team,detected_by,declared_breaking,notes
+SC-04100,2026-07-22T14:05:00-05:00,dbt,stg.claim,ADD_MODEL_COLUMN,reported_channel,,VARCHAR,PR #741,Data Engineering,dbt_manifest_diff,False,Expose FNOL channel for digital intake KPI
+SC-04101,2026-07-30T21:10:00-05:00,ClaimCenter,src_claimcenter.claim_payment,ALTER_TYPE,check_memo,VARCHAR(80),VARCHAR(255),CHG-46551,Claims Systems,source_release_notes,False,Widen memo field
+SC-04102,2026-07-31T02:09:00-05:00,Ingest loader,raw.claim_payment,ALTER_TYPE,check_memo,VARCHAR(80),VARCHAR(255),,Data Engineering,loader_schema_drift,False,Auto-applied widening
+SC-04103,2026-08-05T22:00:00-05:00,PolicyCenter,src_policycenter.policy,ADD_COLUMN,paperless_ind,,BOOLEAN,CHG-46802,Policy Platform,source_release_notes,False,E-delivery preference
+SC-04104,2026-08-06T02:11:00-05:00,Ingest loader,raw.policy_snapshot,ADD_COLUMN,paperless_ind,,BOOLEAN,,Data Engineering,loader_schema_drift,False,Auto-added (schema drift: allow)
+SC-04105,2026-08-12T10:42:00-05:00,dbt,mart.fct_claim_closed,ADD_MODEL_COLUMN,days_open,,INTEGER,PR #758,Claims Analytics,dbt_manifest_diff,False,Cycle-time metric for adjuster scorecards
+SC-04106,2026-08-19T09:15:00-05:00,Workday,src_workday.adjuster_roster,ADD_COLUMN,licensed_states,,VARCHAR,HR-2290,HR Systems,source_release_notes,False,Multi-state licensing
+SC-04107,2026-08-20T02:04:00-05:00,Ingest loader,raw.adjuster_roster,ADD_COLUMN,licensed_states,,VARCHAR,,Data Engineering,loader_schema_drift,False,Auto-added (schema drift: allow)
+SC-04108,2026-08-27T15:30:00-05:00,dbt,stg.storm_events,MODIFY_MODEL_LOGIC,,,,PR #771,Data Engineering,dbt_manifest_diff,False,Expand geo filter to include IA counties
+SC-04109,2026-09-10T21:30:00-05:00,ClaimCenter,src_claimcenter.claim_payment,ALTER_TYPE,amount,"NUMERIC(12,2)","NUMERIC(14,2)",CHG-47011,Claims Systems,source_release_notes,False,Large-loss headroom after hail event
+SC-04110,2026-09-11T02:08:00-05:00,Ingest loader,raw.claim_payment,ALTER_TYPE,amount,"NUMERIC(12,2)","NUMERIC(14,2)",,Data Engineering,loader_schema_drift,False,Auto-applied widening
+SC-04111,2026-09-22T21:15:00-05:00,PolicyCenter,src_policycenter.policy,RENAME_COLUMN,agt_cd,agt_cd,producer_cd,CHG-47102,Policy Platform,source_release_notes,False,"ACORD naming alignment, all product lines. Loader handles schema drift."
+SC-04112,2026-09-23T02:13:00-05:00,Ingest loader,raw.policy_snapshot,ADD_COLUMN,producer_cd,,VARCHAR(12),,Data Engineering,loader_schema_drift,False,"Auto-added (schema drift: allow). agt_cd retained, NULL going forward."
+SC-04113,2026-09-29T11:02:00-05:00,dbt,int.claim_financials,MODIFY_MODEL_LOGIC,,,,PR #790,Data Engineering,dbt_manifest_diff,False,Exclude voided payments
+SC-04114,2026-10-06T13:48:00-05:00,dbt,mart.dim_adjuster,ADD_MODEL_COLUMN,licensed_states,,VARCHAR,PR #799,Claims Analytics,dbt_manifest_diff,False,
+SC-04115,2026-10-14T20:30:00-05:00,ClaimCenter,src_claimcenter.claim,ADD_COLUMN,litigation_flag,,BOOLEAN,CHG-48170,Claims Systems,source_release_notes,False,Litigation tracking for GL and CA
+SC-04116,2026-10-15T02:12:00-05:00,Ingest loader,raw.claim,ADD_COLUMN,litigation_flag,,BOOLEAN,,Data Engineering,loader_schema_drift,False,Auto-added (schema drift: allow)
+SC-04117,2026-10-15T09:20:00-05:00,dbt,stg.claim,ADD_MODEL_COLUMN,litigation_flag,,BOOLEAN,PR #806,Data Engineering,dbt_manifest_diff,False,
+SC-04118,2026-10-15T16:20:00-05:00,dbt,mart.agg_claim_severity_daily,ADD_MODEL_COLUMN,cat_event_id,,VARCHAR,PR #812,Claims Analytics,dbt_manifest_diff,False,Tag CAT-driven closures on severity dashboard
+SC-04119,2026-10-15T16:22:00-05:00,Tableau,bi.claims_severity_dashboard,MODIFY_EXPOSURE,,,,PR #812,Claims Analytics,manual,False,Add CAT filter (default: All)
+SC-04120,2026-10-15T21:47:00-05:00,PolicyCenter,src_policycenter.policy,RENAME_COLUMN,pol_status_cd,pol_status_cd,policy_status_code,CHG-48213,Policy Platform,source_release_notes,False,PC-2026.10.2: HO and CP product lines move to extract API v4 (product model v4). Status field renamed per ACORD alignment. Loader handles schema drift.
+SC-04121,2026-10-16T02:14:00-05:00,Ingest loader,raw.policy_snapshot,ADD_COLUMN,policy_status_code,,VARCHAR(4),,Data Engineering,loader_schema_drift,False,Auto-added (schema drift: allow)

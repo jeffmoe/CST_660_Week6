@@ -1,0 +1,250 @@
+<?xml version='1.0' encoding='utf-8'?>
+<graphml xmlns="http://graphml.graphdrawing.org/xmlns" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://graphml.graphdrawing.org/xmlns http://graphml.graphdrawing.org/xmlns/1.0/graphml.xsd">
+  <key id="d6" for="edge" attr.name="relationship" attr.type="string" />
+  <key id="d5" for="node" attr.name="freshness_sla" attr.type="string" />
+  <key id="d4" for="node" attr.name="materialization" attr.type="string" />
+  <key id="d3" for="node" attr.name="owner" attr.type="string" />
+  <key id="d2" for="node" attr.name="system" attr.type="string" />
+  <key id="d1" for="node" attr.name="layer" attr.type="string" />
+  <key id="d0" for="graph" attr.name="name" attr.type="string" />
+  <graph edgedefault="directed">
+    <node id="src_policycenter.policy">
+      <data key="d1">source</data>
+      <data key="d2">PolicyCenter</data>
+      <data key="d3">Policy Platform</data>
+      <data key="d4">external</data>
+      <data key="d5">02:00</data>
+    </node>
+    <node id="src_claimcenter.claim">
+      <data key="d1">source</data>
+      <data key="d2">ClaimCenter</data>
+      <data key="d3">Claims Systems</data>
+      <data key="d4">external</data>
+      <data key="d5">02:00</data>
+    </node>
+    <node id="src_claimcenter.claim_payment">
+      <data key="d1">source</data>
+      <data key="d2">ClaimCenter</data>
+      <data key="d3">Claims Systems</data>
+      <data key="d4">external</data>
+      <data key="d5">02:00</data>
+    </node>
+    <node id="src_claimcenter.claim_status_history">
+      <data key="d1">source</data>
+      <data key="d2">ClaimCenter</data>
+      <data key="d3">Claims Systems</data>
+      <data key="d4">external</data>
+      <data key="d5">02:00</data>
+    </node>
+    <node id="src_workday.adjuster_roster">
+      <data key="d1">source</data>
+      <data key="d2">Workday</data>
+      <data key="d3">HR Systems</data>
+      <data key="d4">external</data>
+      <data key="d5">02:00</data>
+    </node>
+    <node id="ext_noaa.storm_events">
+      <data key="d1">source</data>
+      <data key="d2">NOAA API</data>
+      <data key="d3">External</data>
+      <data key="d4">external</data>
+      <data key="d5">02:00</data>
+    </node>
+    <node id="raw.policy_snapshot">
+      <data key="d1">raw</data>
+      <data key="d2">Ingest loader</data>
+      <data key="d3">Data Engineering</data>
+      <data key="d4">full_refresh</data>
+      <data key="d5">03:00</data>
+    </node>
+    <node id="raw.claim">
+      <data key="d1">raw</data>
+      <data key="d2">Ingest loader</data>
+      <data key="d3">Data Engineering</data>
+      <data key="d4">incremental</data>
+      <data key="d5">03:00</data>
+    </node>
+    <node id="raw.claim_payment">
+      <data key="d1">raw</data>
+      <data key="d2">Ingest loader</data>
+      <data key="d3">Data Engineering</data>
+      <data key="d4">incremental</data>
+      <data key="d5">03:00</data>
+    </node>
+    <node id="raw.claim_status_history">
+      <data key="d1">raw</data>
+      <data key="d2">Ingest loader</data>
+      <data key="d3">Data Engineering</data>
+      <data key="d4">incremental</data>
+      <data key="d5">03:00</data>
+    </node>
+    <node id="raw.adjuster_roster">
+      <data key="d1">raw</data>
+      <data key="d2">Ingest loader</data>
+      <data key="d3">Data Engineering</data>
+      <data key="d4">full_refresh</data>
+      <data key="d5">03:00</data>
+    </node>
+    <node id="raw.storm_events">
+      <data key="d1">raw</data>
+      <data key="d2">Ingest loader</data>
+      <data key="d3">Data Engineering</data>
+      <data key="d4">incremental</data>
+      <data key="d5">04:00</data>
+    </node>
+    <node id="stg.policy">
+      <data key="d1">staging</data>
+      <data key="d2">dbt</data>
+      <data key="d3">Data Engineering</data>
+      <data key="d4">table</data>
+      <data key="d5">03:30</data>
+    </node>
+    <node id="stg.claim">
+      <data key="d1">staging</data>
+      <data key="d2">dbt</data>
+      <data key="d3">Data Engineering</data>
+      <data key="d4">table</data>
+      <data key="d5">03:30</data>
+    </node>
+    <node id="stg.claim_payment">
+      <data key="d1">staging</data>
+      <data key="d2">dbt</data>
+      <data key="d3">Data Engineering</data>
+      <data key="d4">table</data>
+      <data key="d5">03:30</data>
+    </node>
+    <node id="stg.claim_status">
+      <data key="d1">staging</data>
+      <data key="d2">dbt</data>
+      <data key="d3">Data Engineering</data>
+      <data key="d4">incremental</data>
+      <data key="d5">03:30</data>
+    </node>
+    <node id="stg.adjuster">
+      <data key="d1">staging</data>
+      <data key="d2">dbt</data>
+      <data key="d3">Data Engineering</data>
+      <data key="d4">table</data>
+      <data key="d5">03:30</data>
+    </node>
+    <node id="stg.storm_events">
+      <data key="d1">staging</data>
+      <data key="d2">dbt</data>
+      <data key="d3">Data Engineering</data>
+      <data key="d4">incremental</data>
+      <data key="d5">04:30</data>
+    </node>
+    <node id="int.claim_policy_enriched">
+      <data key="d1">intermediate</data>
+      <data key="d2">dbt</data>
+      <data key="d3">Data Engineering</data>
+      <data key="d4">table</data>
+      <data key="d5">04:00</data>
+    </node>
+    <node id="int.claim_financials">
+      <data key="d1">intermediate</data>
+      <data key="d2">dbt</data>
+      <data key="d3">Data Engineering</data>
+      <data key="d4">table</data>
+      <data key="d5">04:00</data>
+    </node>
+    <node id="mart.fct_claim_closed">
+      <data key="d1">mart</data>
+      <data key="d2">dbt</data>
+      <data key="d3">Claims Analytics</data>
+      <data key="d4">incremental</data>
+      <data key="d5">04:30</data>
+    </node>
+    <node id="mart.dim_adjuster">
+      <data key="d1">mart</data>
+      <data key="d2">dbt</data>
+      <data key="d3">Claims Analytics</data>
+      <data key="d4">table</data>
+      <data key="d5">04:30</data>
+    </node>
+    <node id="mart.agg_claim_severity_daily">
+      <data key="d1">mart</data>
+      <data key="d2">dbt</data>
+      <data key="d3">Claims Analytics</data>
+      <data key="d4">incremental</data>
+      <data key="d5">05:00</data>
+    </node>
+    <node id="bi.claims_severity_dashboard">
+      <data key="d1">exposure</data>
+      <data key="d2">Tableau</data>
+      <data key="d3">Claims Analytics</data>
+      <data key="d4">extract</data>
+      <data key="d5">06:00</data>
+    </node>
+    <edge source="src_policycenter.policy" target="raw.policy_snapshot">
+      <data key="d6">extract API v3 + v4 (merged)</data>
+    </edge>
+    <edge source="src_claimcenter.claim" target="raw.claim">
+      <data key="d6">CDC</data>
+    </edge>
+    <edge source="src_claimcenter.claim_payment" target="raw.claim_payment">
+      <data key="d6">CDC</data>
+    </edge>
+    <edge source="src_claimcenter.claim_status_history" target="raw.claim_status_history">
+      <data key="d6">CDC</data>
+    </edge>
+    <edge source="src_workday.adjuster_roster" target="raw.adjuster_roster">
+      <data key="d6">SFTP file</data>
+    </edge>
+    <edge source="ext_noaa.storm_events" target="raw.storm_events">
+      <data key="d6">REST API</data>
+    </edge>
+    <edge source="raw.policy_snapshot" target="stg.policy">
+      <data key="d6">select/rename</data>
+    </edge>
+    <edge source="raw.claim" target="stg.claim">
+      <data key="d6">select/dedupe</data>
+    </edge>
+    <edge source="raw.claim_payment" target="stg.claim_payment">
+      <data key="d6">select/cast</data>
+    </edge>
+    <edge source="raw.claim_status_history" target="stg.claim_status">
+      <data key="d6">select/dedupe</data>
+    </edge>
+    <edge source="raw.adjuster_roster" target="stg.adjuster">
+      <data key="d6">select</data>
+    </edge>
+    <edge source="raw.storm_events" target="stg.storm_events">
+      <data key="d6">select/geo-filter</data>
+    </edge>
+    <edge source="stg.policy" target="int.claim_policy_enriched">
+      <data key="d6">INNER JOIN ON claim.policy_id = policy.policy_id AND policy.policy_status IN ('IF','CX','EX')</data>
+    </edge>
+    <edge source="stg.claim" target="int.claim_policy_enriched">
+      <data key="d6">base</data>
+    </edge>
+    <edge source="stg.claim_payment" target="int.claim_financials">
+      <data key="d6">aggregate by claim_id</data>
+    </edge>
+    <edge source="stg.claim_status" target="mart.fct_claim_closed">
+      <data key="d6">INNER JOIN latest status = 'CLOSED'</data>
+    </edge>
+    <edge source="stg.adjuster" target="mart.dim_adjuster">
+      <data key="d6">base</data>
+    </edge>
+    <edge source="stg.storm_events" target="mart.agg_claim_severity_daily">
+      <data key="d6">LEFT JOIN cat tagging</data>
+    </edge>
+    <edge source="int.claim_policy_enriched" target="mart.fct_claim_closed">
+      <data key="d6">base</data>
+    </edge>
+    <edge source="int.claim_financials" target="mart.fct_claim_closed">
+      <data key="d6">LEFT JOIN ON claim_id</data>
+    </edge>
+    <edge source="mart.fct_claim_closed" target="mart.agg_claim_severity_daily">
+      <data key="d6">GROUP BY close_date, lob_cd</data>
+    </edge>
+    <edge source="mart.dim_adjuster" target="mart.agg_claim_severity_daily">
+      <data key="d6">LEFT JOIN ON adjuster_id</data>
+    </edge>
+    <edge source="mart.agg_claim_severity_daily" target="bi.claims_severity_dashboard">
+      <data key="d6">extract refresh</data>
+    </edge>
+    <data key="d0">brightline_claims_lineage</data>
+  </graph>
+</graphml>

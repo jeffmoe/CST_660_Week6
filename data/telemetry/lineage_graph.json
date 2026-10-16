@@ -1,0 +1,318 @@
+{
+  "directed": true,
+  "multigraph": false,
+  "graph": {
+    "name": "brightline_claims_lineage"
+  },
+  "nodes": [
+    {
+      "layer": "source",
+      "system": "PolicyCenter",
+      "owner": "Policy Platform",
+      "materialization": "external",
+      "freshness_sla": "02:00",
+      "id": "src_policycenter.policy"
+    },
+    {
+      "layer": "source",
+      "system": "ClaimCenter",
+      "owner": "Claims Systems",
+      "materialization": "external",
+      "freshness_sla": "02:00",
+      "id": "src_claimcenter.claim"
+    },
+    {
+      "layer": "source",
+      "system": "ClaimCenter",
+      "owner": "Claims Systems",
+      "materialization": "external",
+      "freshness_sla": "02:00",
+      "id": "src_claimcenter.claim_payment"
+    },
+    {
+      "layer": "source",
+      "system": "ClaimCenter",
+      "owner": "Claims Systems",
+      "materialization": "external",
+      "freshness_sla": "02:00",
+      "id": "src_claimcenter.claim_status_history"
+    },
+    {
+      "layer": "source",
+      "system": "Workday",
+      "owner": "HR Systems",
+      "materialization": "external",
+      "freshness_sla": "02:00",
+      "id": "src_workday.adjuster_roster"
+    },
+    {
+      "layer": "source",
+      "system": "NOAA API",
+      "owner": "External",
+      "materialization": "external",
+      "freshness_sla": "02:00",
+      "id": "ext_noaa.storm_events"
+    },
+    {
+      "layer": "raw",
+      "system": "Ingest loader",
+      "owner": "Data Engineering",
+      "materialization": "full_refresh",
+      "freshness_sla": "03:00",
+      "id": "raw.policy_snapshot"
+    },
+    {
+      "layer": "raw",
+      "system": "Ingest loader",
+      "owner": "Data Engineering",
+      "materialization": "incremental",
+      "freshness_sla": "03:00",
+      "id": "raw.claim"
+    },
+    {
+      "layer": "raw",
+      "system": "Ingest loader",
+      "owner": "Data Engineering",
+      "materialization": "incremental",
+      "freshness_sla": "03:00",
+      "id": "raw.claim_payment"
+    },
+    {
+      "layer": "raw",
+      "system": "Ingest loader",
+      "owner": "Data Engineering",
+      "materialization": "incremental",
+      "freshness_sla": "03:00",
+      "id": "raw.claim_status_history"
+    },
+    {
+      "layer": "raw",
+      "system": "Ingest loader",
+      "owner": "Data Engineering",
+      "materialization": "full_refresh",
+      "freshness_sla": "03:00",
+      "id": "raw.adjuster_roster"
+    },
+    {
+      "layer": "raw",
+      "system": "Ingest loader",
+      "owner": "Data Engineering",
+      "materialization": "incremental",
+      "freshness_sla": "04:00",
+      "id": "raw.storm_events"
+    },
+    {
+      "layer": "staging",
+      "system": "dbt",
+      "owner": "Data Engineering",
+      "materialization": "table",
+      "freshness_sla": "03:30",
+      "id": "stg.policy"
+    },
+    {
+      "layer": "staging",
+      "system": "dbt",
+      "owner": "Data Engineering",
+      "materialization": "table",
+      "freshness_sla": "03:30",
+      "id": "stg.claim"
+    },
+    {
+      "layer": "staging",
+      "system": "dbt",
+      "owner": "Data Engineering",
+      "materialization": "table",
+      "freshness_sla": "03:30",
+      "id": "stg.claim_payment"
+    },
+    {
+      "layer": "staging",
+      "system": "dbt",
+      "owner": "Data Engineering",
+      "materialization": "incremental",
+      "freshness_sla": "03:30",
+      "id": "stg.claim_status"
+    },
+    {
+      "layer": "staging",
+      "system": "dbt",
+      "owner": "Data Engineering",
+      "materialization": "table",
+      "freshness_sla": "03:30",
+      "id": "stg.adjuster"
+    },
+    {
+      "layer": "staging",
+      "system": "dbt",
+      "owner": "Data Engineering",
+      "materialization": "incremental",
+      "freshness_sla": "04:30",
+      "id": "stg.storm_events"
+    },
+    {
+      "layer": "intermediate",
+      "system": "dbt",
+      "owner": "Data Engineering",
+      "materialization": "table",
+      "freshness_sla": "04:00",
+      "id": "int.claim_policy_enriched"
+    },
+    {
+      "layer": "intermediate",
+      "system": "dbt",
+      "owner": "Data Engineering",
+      "materialization": "table",
+      "freshness_sla": "04:00",
+      "id": "int.claim_financials"
+    },
+    {
+      "layer": "mart",
+      "system": "dbt",
+      "owner": "Claims Analytics",
+      "materialization": "incremental",
+      "freshness_sla": "04:30",
+      "id": "mart.fct_claim_closed"
+    },
+    {
+      "layer": "mart",
+      "system": "dbt",
+      "owner": "Claims Analytics",
+      "materialization": "table",
+      "freshness_sla": "04:30",
+      "id": "mart.dim_adjuster"
+    },
+    {
+      "layer": "mart",
+      "system": "dbt",
+      "owner": "Claims Analytics",
+      "materialization": "incremental",
+      "freshness_sla": "05:00",
+      "id": "mart.agg_claim_severity_daily"
+    },
+    {
+      "layer": "exposure",
+      "system": "Tableau",
+      "owner": "Claims Analytics",
+      "materialization": "extract",
+      "freshness_sla": "06:00",
+      "id": "bi.claims_severity_dashboard"
+    }
+  ],
+  "edges": [
+    {
+      "relationship": "extract API v3 + v4 (merged)",
+      "source": "src_policycenter.policy",
+      "target": "raw.policy_snapshot"
+    },
+    {
+      "relationship": "CDC",
+      "source": "src_claimcenter.claim",
+      "target": "raw.claim"
+    },
+    {
+      "relationship": "CDC",
+      "source": "src_claimcenter.claim_payment",
+      "target": "raw.claim_payment"
+    },
+    {
+      "relationship": "CDC",
+      "source": "src_claimcenter.claim_status_history",
+      "target": "raw.claim_status_history"
+    },
+    {
+      "relationship": "SFTP file",
+      "source": "src_workday.adjuster_roster",
+      "target": "raw.adjuster_roster"
+    },
+    {
+      "relationship": "REST API",
+      "source": "ext_noaa.storm_events",
+      "target": "raw.storm_events"
+    },
+    {
+      "relationship": "select/rename",
+      "source": "raw.policy_snapshot",
+      "target": "stg.policy"
+    },
+    {
+      "relationship": "select/dedupe",
+      "source": "raw.claim",
+      "target": "stg.claim"
+    },
+    {
+      "relationship": "select/cast",
+      "source": "raw.claim_payment",
+      "target": "stg.claim_payment"
+    },
+    {
+      "relationship": "select/dedupe",
+      "source": "raw.claim_status_history",
+      "target": "stg.claim_status"
+    },
+    {
+      "relationship": "select",
+      "source": "raw.adjuster_roster",
+      "target": "stg.adjuster"
+    },
+    {
+      "relationship": "select/geo-filter",
+      "source": "raw.storm_events",
+      "target": "stg.storm_events"
+    },
+    {
+      "relationship": "INNER JOIN ON claim.policy_id = policy.policy_id AND policy.policy_status IN ('IF','CX','EX')",
+      "source": "stg.policy",
+      "target": "int.claim_policy_enriched"
+    },
+    {
+      "relationship": "base",
+      "source": "stg.claim",
+      "target": "int.claim_policy_enriched"
+    },
+    {
+      "relationship": "aggregate by claim_id",
+      "source": "stg.claim_payment",
+      "target": "int.claim_financials"
+    },
+    {
+      "relationship": "INNER JOIN latest status = 'CLOSED'",
+      "source": "stg.claim_status",
+      "target": "mart.fct_claim_closed"
+    },
+    {
+      "relationship": "base",
+      "source": "stg.adjuster",
+      "target": "mart.dim_adjuster"
+    },
+    {
+      "relationship": "LEFT JOIN cat tagging",
+      "source": "stg.storm_events",
+      "target": "mart.agg_claim_severity_daily"
+    },
+    {
+      "relationship": "base",
+      "source": "int.claim_policy_enriched",
+      "target": "mart.fct_claim_closed"
+    },
+    {
+      "relationship": "LEFT JOIN ON claim_id",
+      "source": "int.claim_financials",
+      "target": "mart.fct_claim_closed"
+    },
+    {
+      "relationship": "GROUP BY close_date, lob_cd",
+      "source": "mart.fct_claim_closed",
+      "target": "mart.agg_claim_severity_daily"
+    },
+    {
+      "relationship": "LEFT JOIN ON adjuster_id",
+      "source": "mart.dim_adjuster",
+      "target": "mart.agg_claim_severity_daily"
+    },
+    {
+      "relationship": "extract refresh",
+      "source": "mart.agg_claim_severity_daily",
+      "target": "bi.claims_severity_dashboard"
+    }
+  ]
+}
